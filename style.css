@@ -36,6 +36,16 @@
     from{ opacity: 0; }
     to{ opacity: 1; }
 }
+@keyframes growDown{
+    from{
+        transform: translateX(-50%) scaleY(0);
+        opacity: 0;
+    }
+    to{
+        transform: translateX(-50%) scaleY(1);
+        opacity: 1;
+    }
+}
 @keyframes riseIn{
     from{
         opacity: 0;
@@ -51,6 +61,75 @@ body{
     overflow: hidden;
     height: 100vh;
     width: 100vw;
+}
+.loader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.loader.hidden{
+    opacity: 0;
+    visibility: hidden;
+}
+.loader-logos{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+.nike-logo{
+    width: 80px;
+    height: auto;
+    object-fit: contain;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+.jordan-logo{
+    width: 50px;
+    height: auto;
+    object-fit: contain;
+    animation: pulse 1.5s ease-in-out infinite 0.2s;
+}
+.logo-separator{
+    color: white;
+    font-size: 30px;
+    font-family: 'Norwester', sans-serif;
+    opacity: 0.5;
+}
+.loader-text{
+    margin-bottom: 20px;
+}
+.loader-text span{
+    color: white;
+    font-family: 'Norwester', sans-serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    animation: fadeIn 0.3s ease;
+}
+.loader-bar{
+    width: 200px;
+    height: 2px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+.loader-progress{
+    height: 100%;
+    background: white;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+@keyframes pulse{
+    0%, 100%{ opacity: 1; transform: scale(1); }
+    50%{ opacity: 0.6; transform: scale(0.95); }
 }
 .main{
     .details{
@@ -72,33 +151,38 @@ body{
             color: var(--accent-color, #660413);
         }
         .shoe-desc{
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 14px;
             color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
             max-width: 400px;
             text-align: center;
             margin-top: 20px;
             line-height: 1.6;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid var(--accent-color);
             border-radius: 12px;
             padding: 15px 20px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 0 5px var(--accent-color),
+                0 0 15px var(--accent-color),
+                0 0 30px var(--accent-color),
+                inset 0 0 10px var(--accent-color);
         }
     }
     .stripes{
         display: flex;
         position: absolute; 
-        top: 40%;
+        top: 0;
         left: 71%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
         gap: 30px;
-        animation: growUp 0.7s ease-out;
-        transform-origin: bottom;
+        animation: growDown 0.7s ease-out;
+        transform-origin: top;
         #stripe1{
             background-color: var(--accent-color, #660413);
-            height: 70vh;
+            height: 80vh;
             width: 60px;
         }
         #stripe2{
@@ -166,6 +250,21 @@ body{
         font-family: 'Norwester', sans-serif;
         transition: transform 0.3s ease;
     }
+    .side-tag{
+        position: fixed;
+        left: 0;
+        top: 105px;
+        width: 50px;
+        text-align: center;
+        color: white;
+        font-family: 'Norwester', sans-serif;
+        font-size: 16px;
+        letter-spacing: 2px;
+        z-index: 100;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+    }
     .shoe-panel{
         position: fixed;
         left: 55px;
@@ -213,5 +312,23 @@ body{
         rotate: 0deg;
         position: static;
         transform: none;
+    }
+
+    .bottom-jordan-logo {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        width: 100px;
+        height: auto;
+        object-fit: contain;
+        z-index: 100;
+        mix-blend-mode: screen;
+        opacity: 0.5;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .bottom-jordan-logo:hover {
+        opacity: 1;
+        transform: scale(1.1);
     }
 }
