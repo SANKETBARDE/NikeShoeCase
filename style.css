@@ -1,0 +1,217 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+@keyframes fadeInUp{
+    from{
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to{
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+@keyframes slideInRight{
+    from{
+        opacity: 0;
+        transform: translate(-30%, -50%) rotate(-20deg);
+    }
+    to{
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(-20deg);
+    }
+}
+@keyframes growUp{
+    from{
+        transform: translate(-50%, -50%) scaleY(0);
+        opacity: 0;
+    }
+    to{
+        transform: translate(-50%, -50%) scaleY(1);
+        opacity: 1;
+    }
+}
+@keyframes fadeIn{
+    from{ opacity: 0; }
+    to{ opacity: 1; }
+}
+@keyframes riseIn{
+    from{
+        opacity: 0;
+        transform: translate(-50%, 30vh);
+    }
+    to{
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+body{
+    background-color: black;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+.main{
+    .details{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 50%;
+        left: 20%;
+        transform: translate(-50%, -50%);
+        align-items: center;
+        justify-content: center;
+        animation: fadeInUp 0.6s ease-out;
+        h1{
+            font-size: clamp(30px, 5vw, 70px);
+            color: white;
+            font-family: 'Norwester', sans-serif;
+        }
+        .shoe-name{
+            color: var(--accent-color, #660413);
+        }
+        .shoe-desc{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 400px;
+            text-align: center;
+            margin-top: 20px;
+            line-height: 1.6;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+    }
+    .stripes{
+        display: flex;
+        position: absolute; 
+        top: 40%;
+        left: 71%;
+        transform: translate(-50%, -50%);
+        gap: 30px;
+        animation: growUp 0.7s ease-out;
+        transform-origin: bottom;
+        #stripe1{
+            background-color: var(--accent-color, #660413);
+            height: 70vh;
+            width: 60px;
+        }
+        #stripe2{
+            background-color: var(--accent-color, #660413);
+            height: 65vh;
+            width: 60px;
+        }
+        #stripe3{
+            background-color: var(--accent-color, #660413);
+            height: 60vh;
+            width: 60px;
+        }
+        #stripe4{
+            background-color: var(--accent-color, #660413);
+            height: 50vh;
+            width: 60px;
+        }
+        #stripe5{
+            background-color: var(--accent-color, #660413);
+            height: 45vh;
+            width: 60px;
+        }
+    }
+    .img{
+        img{
+            width: 50vw;
+            max-width: 600px;
+            position: absolute;
+            top: 40%;
+            left: 75%;
+            transform: translate(-50%, -50%);
+            rotate: -20deg;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            animation: riseIn 0.8s ease-out;
+        }
+        img:hover{
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+    }
+    .side-nav-btn{
+        position: fixed;
+        left: 0px;
+        top: 50px;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid white;
+        cursor: pointer;
+        z-index: 100;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .side-nav-btn:hover{
+        background: var(--accent-color, #660413);
+        border-color: var(--accent-color, #660413);
+        border-left: none;
+    }
+    .side-nav-btn::before{
+        content: '+';
+        color: white;
+        font-size: 24px;
+        font-family: 'Norwester', sans-serif;
+        transition: transform 0.3s ease;
+    }
+    .shoe-panel{
+        position: fixed;
+        left: 55px;
+        top: 5px;
+        transform: scaleX(0);
+        transform-origin: left center;
+        background: rgba(0, 0, 0, 0.9);
+        border: 2px solid var(--accent-color, #660413);
+        padding: 20px;
+        display: flex;
+        gap: 20px;
+        z-index: 99;
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        overflow: hidden;
+    }
+    .shoe-panel.open{
+        transform: scaleX(1);
+        opacity: 1;
+    }
+    .panel-shoe{
+        width: 80px;
+        height: 80px;
+        border: 2px solid white;
+        overflow: hidden;
+        cursor: pointer;
+        opacity: 0.6;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+    }
+    .panel-shoe:hover{
+        opacity: 1;
+        transform: scale(1.05);
+        border-color: var(--accent-color, #660413);
+    }
+    .panel-shoe.active{
+        opacity: 1;
+        border-color: var(--accent-color, #660413);
+        box-shadow: 0 0 10px var(--accent-color, #660413);
+    }
+    .panel-shoe img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        rotate: 0deg;
+        position: static;
+        transform: none;
+    }
+}
